@@ -1,11 +1,8 @@
 const chai = require('chai');
 const expect = chai.expect;
-const sinon = require('sinon')
-// const should = chai.should();
-// const spies = require('chai-spies');
-// chai.use(spies);
+const sinon = require('sinon');
 
-const methods = require('./experimenting');
+const methods = require('./solution');
 // const {
 //   countChangeCombinations,
 //   combinatorialPartitonsReduceToCoins,
@@ -64,9 +61,10 @@ describe('Reductions:', () => {
 
     it ('should determine whether a set of numbers contains a subset which sums to a given value', () => {
 
-      expect(methods.knapsackProblem([1, 3, 6, 7, 9], 12)).to.be.true;
-      expect(methods.knapsackProblem([2, 4, 7, 11], 13)).to.be.true;
+      expect(methods.knapsackProblem([1, 3, 6, 7, 9], 13)).to.be.true;
+      expect(methods.knapsackProblem([2, 4, 7, 19], 13)).to.be.true;
       expect(methods.knapsackProblem([2, 3, 8, 16], 9)).to.be.false;
+      expect(methods.knapsackProblem([2, 4, 7, 15, 24, 3, 11], 48)).to.be.true;
 
     })
 
