@@ -4,13 +4,16 @@
   "description": "asymptotically journey through functions",
   "main": "algorithms.js",
   "scripts": {
+    "start": "browserify ./Big-O-algorithms/algorithms.js ./reductions/reductions.js -o ./visualization/bundle.js",
     "test": "mocha ./**/*test.js --watch ."
   },
   "author": "Alec",
   "license": "ISC",
   "dependencies": {
+    "browserify": "^13.1.1",
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
+    "d3": "^4.3.0",
     "mocha": "^3.1.2",
     "sinon": "^1.17.6"
   }
