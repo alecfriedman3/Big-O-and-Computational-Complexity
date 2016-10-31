@@ -4,7 +4,7 @@
   "description": "asymptotically journey through functions",
   "main": "algorithms.js",
   "scripts": {
-    "test": "mocha algorithms.test --watch ."
+    "test": "mocha ./**/*test.js --watch ."
   },
   "author": "Alec",
   "license": "ISC",
