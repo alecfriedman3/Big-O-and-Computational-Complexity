@@ -2,14 +2,22 @@
 <html lang="en">
   <head>
     <title>Big-O-Visualizer</title>
-    <link href="./index.css" rel="stylesheet" />
-    <script src="./bundle.js" defer></script>
+    <!-- <link href="./index.css" rel="stylesheet" /> -->
   </head>
   <body>
     <svg id="app"></svg>
 
-    <button class="algo">String Search</button>
+    <button class="algo" id="stringSearch">String Search</button>
     <button class="algo">Sorted Arr Search</button>
     <button class="algo">Binary Tree Search</button>
+    <script src="./eventListener.js"></script>
+    <script type="text/javascript">
+      var eventListener = new EventListener();
+      document.getElementById('stringSearch').addEventListener('click', function (){
+        console.log('clicked');
+        eventListener.emit('stringSearch')
+      })
+    </script>
+    <script src="./bundle.js" charset="utf-8" defer></script>
   </body>
 </html>
