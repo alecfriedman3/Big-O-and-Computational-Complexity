@@ -4,7 +4,7 @@
   "description": "asymptotically journey through functions",
   "main": "algorithms.js",
   "scripts": {
-    "start": "browserify ./Big-O-algorithms/algorithms.js ./reductions/reductions.js -o ./visualization/bundle.js",
+    "start": "browserify ./visualization -o ./visualization/bundle.js && open -a \"Google Chrome\" ./visualization/index.html",
     "test": "mocha ./**/*test.js --watch ."
   },
   "author": "Alec",
