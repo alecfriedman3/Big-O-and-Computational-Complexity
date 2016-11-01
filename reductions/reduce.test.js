@@ -19,17 +19,17 @@ describe('Reductions:', () => {
   describe('The Counting Change combinations problem', () =>{
 
     it ('should count the number of ways to make change from a given list of coins', () => {
-      expect(methods.countChangeCombinations(4, [1, 2])).to.be.equal(3);
-      expect(methods.countChangeCombinations(10, [5, 2, 3])).to.be.equal(4);
-      expect(methods.countChangeCombinations(11, [5, 7])).to.be.equal(0);
-      expect(methods.countChangeCombinations(61, [1, 5, 10, 25])).to.be.equal(73);
-      expect(methods.countChangeCombinations(572, [8, 12, 13, 94, 27])).to.be.equal(2317)
+      expect(methods.countChangeCombinations([1, 2], 4)).to.be.equal(3);
+      expect(methods.countChangeCombinations([5, 2, 3], 10)).to.be.equal(4);
+      expect(methods.countChangeCombinations([5, 7], 11)).to.be.equal(0);
+      expect(methods.countChangeCombinations([1, 5, 10, 25], 61)).to.be.equal(73);
+      expect(methods.countChangeCombinations([8, 12, 13, 94, 27], 572)).to.be.equal(2317)
     })
 
     // CAUTION THIS WILL TAKE A LONG TIME TO RUN IF YOU DO NOT USE MEMOIZATION
     it ('only try this if you think your algorithm is efficient!', function() {
       this.timeout(5000)
-      expect(methods.countChangeCombinations(363, [2, 7, 4, 8, 16])).to.be.equal(118519)
+      expect(methods.countChangeCombinations([2, 7, 4, 8, 16], 363)).to.be.equal(118519)
     })
 
   })

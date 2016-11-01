@@ -2,20 +2,37 @@
 <html lang="en">
   <head>
     <title>Big-O-Visualizer</title>
-    <!-- <link href="./index.css" rel="stylesheet" /> -->
+    <link href="./index.css" rel="stylesheet" />
   </head>
   <body>
-    <svg id="app"></svg>
+    <div class="column">
+      <svg id="app"></svg>
+    </div>
 
-    <button class="algo" id="stringSearch">String Search</button>
-    <button class="algo">Sorted Arr Search</button>
-    <button class="algo">Binary Tree Search</button>
+    <div class="column">
+      <button class="algo" id="stringSearch">String Search</button>
+      <button class="algo" id="sortedArrSearch">Sorted Arr Search</button>
+      <button class="algo" id="pairSumNaive">Pair Sum Unsorted</button>
+      <button class="algo" id="coinChangeProblem">Coin Change Problem</button>
+    </div>
     <script src="./eventListener.js"></script>
     <script type="text/javascript">
       var eventListener = new EventListener();
       document.getElementById('stringSearch').addEventListener('click', function (){
         console.log('clicked');
         eventListener.emit('stringSearch')
+      })
+      document.getElementById('sortedArrSearch').addEventListener('click', function (){
+        console.log('clicked');
+        eventListener.emit('sortedArrSearch')
+      })
+      document.getElementById('pairSumNaive').addEventListener('click', function (){
+        console.log('clicked');
+        eventListener.emit('pairSumNaive')
+      })
+      document.getElementById('coinChangeProblem').addEventListener('click', function (){
+        console.log('clicked');
+        eventListener.emit('coinChangeProblem')
       })
     </script>
     <script src="./bundle.js" charset="utf-8" defer></script>

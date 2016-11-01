@@ -13,17 +13,19 @@ const stringSearch = (str, val) => {
 
 const sortedArrSearch = (arr, val) => {
   // how can we optimize a search if we know the array is sorted? Can we solve in O(log n)?
+  let counter = 0;
   let leftPointer = 0, rightPointer = arr.length - 1;
   while (rightPointer > leftPointer + 1){
+    counter++
     let midPoint = Math.floor((rightPointer + leftPointer) / 2)
-    if (arr[midPoint] === val) return true;
+    if (arr[midPoint] === val) return [true, counter];
     else if (arr[midPoint] > val){
       rightPointer = midPoint;
     } else {
       leftPointer = midPoint;
     }
   }
-  return false
+  return [false, counter]
 }
 
 const binaryTreeSearch = () => {
@@ -33,6 +35,14 @@ const binaryTreeSearch = () => {
 // given an array and a target value, do two elements in the array sum to the value?
 const pairSumNaive = (arr, sumVal) => {
   // Write a solution that solves in O(n^2)
+  let counter = 0;
+  for(let i = 0; i < arr.length; i++){
+    for (let j = i + 1; j < arr.length; j++){
+      counter++;
+      if (arr[i] + arr[j] === sumVal) return [true, counter]
+    }
+  }
+  return [false, counter]
 }
 
 const pairSumOptimized = (sortedArr, sumVal) => {
@@ -7845,19 +7855,19 @@ var knownResults = {};
 
 module.exports = {
 
-  countChangeCombinations (money, coins) {
+  countChangeCombinations (coins, money) {
     let mem = 'money: '+ money +'coins: ' + coins.join('');
     if (knownResults[mem]) return knownResults[mem];
     if (money < 0 || !coins.length) return 0;
     if (money === 0) return 1;
-    return knownResults[mem] = this.countChangeCombinations(money - coins[0], coins) + this.countChangeCombinations(money, coins.slice(1))
+    return knownResults[mem] = this.countChangeCombinations(coins, money - coins[0]) + this.countChangeCombinations(coins.slice(1), money)
   },
 
   combinatorialPartitonsReduceToCoins (num) {
     function changeReduction (n) {
       return new Array(n).fill(0).map((e, i) => i + 1)
     }
-    return this.countChangeCombinations(num, changeReduction(num))
+    return this.countChangeCombinations(changeReduction(num), num)
   },
 
   knapsackProblem (set, target) {
@@ -7916,11 +7926,9 @@ module.exports = {
 
 
 },{}],5:[function(require,module,exports){
-var algorithms = require('../Big-O-algorithms/algorithms.solutions.js');
-var NPCMethods = require('../reductions/solution.js');
 var d3 = require('d3');
 
-function buildGraphForAlgorithm(algorithm, inputs){
+function buildGraphForAlgorithm(algorithm, inputs, color){
   let d3Data = inputs.map(ip => {
     let date = new Date();
     let solution = algorithm.apply(null, ip);
@@ -7932,24 +7940,15 @@ function buildGraphForAlgorithm(algorithm, inputs){
   console.log(d3Data, 'd3 data-----------')
   var margin = {top: 20, right: 20, bottom: 30, left: 50}
   let canvas = d3.select('svg')
-    .attr({ 'width': 1080, 'height': 800 });
-
-  // scale
-  // let y = d3.scale.linear()
-  //   .domain([0, d3.max(d3Data.map(e => e[1]))])
-  //   .range([800, 0]);
-
-  // let x = d3.scale.linear()
-  //   .domain([0, d3Data.length])
-  //   .range([0, 1080]);
-
+    .attr({ 'width': 800, 'height': 400 });
+    console.log(canvas, 'here lies canvas--------------')
     let yscale = d3.scale.linear()
-      .domain([0, d3.max(d3Data.map(o => o[1]))])
-      .range([720,0]);
+      .domain([0, 250])
+      .range([400,0]);
 
     let xscale = d3.scale.linear()
       .domain([0, d3Data.length])
-      .range([0, 1080]);
+      .range([0, 800]);
 
     var line = d3.svg.line()
       .x(function(d) { return xscale(d3Data.map(e => e[0]).indexOf(d[0])); })
@@ -7957,18 +7956,13 @@ function buildGraphForAlgorithm(algorithm, inputs){
 
     var emptyLine = d3.svg.line()
       .x(function(d) { return xscale(d3Data.map(e => e[0]).indexOf(d[0])); })
-      .y(800)
-
-    // canvas.append('path')
-    // // .attr("stroke", "blue")
-    // // .attr("stroke-width", 0)
-    // .attr("d", line(d3Data))
+      .y(400)
 
     canvas.selectAll("dot")
     .data(d3Data).enter()
     .append("circle")
-    .attr("r", 1)
-    .attr("fill", "red")
+    .attr("r", 2)
+    .attr("fill", color)
     .attr("cx", function(d) {
       /*Callback Function*/
       return xscale(d[0])
@@ -7977,24 +7971,48 @@ function buildGraphForAlgorithm(algorithm, inputs){
       /*Callback Function*/
       return yscale(d[1])
     })
-      // .attr('transform', 'translate(15,0)')
-      // // .attr("stroke", "blue")
-      // .attr("d", emptyLine(d3Data))
-      // // .attr("stroke-width", 2)
-      // .transition()
-      // .duration(400)
-      // .attr("d", line(d3Data))
 
 }
+function generateIncreasingNumbers (n){
+  var arr = [1];
+  for (var i = 1; i < n; i++){
+    arr.push(arr[i - 1] + Math.floor(Math.random() * 100))
+  }
+  return arr;
+}
+
+function generateRandomNumbers (n) {
+  var arr = [1];
+  for (var i = 1; i < n; i++){
+    var rand = Math.floor(Math.random() * n) * Math.floor(Math.random() * n)
+    while (arr.indexOf(rand) !== -1 || rand === 0){
+      rand = Math.floor(Math.random() * n) * Math.floor(Math.random() * n)
+    }
+    arr.push(rand)
+  }
+  return arr
+}
+
+module.exports = {
+  generateRandomNumbers,
+  generateIncreasingNumbers,
+  buildGraphForAlgorithm
+}
+
+},{"d3":3}],6:[function(require,module,exports){
+var algorithms = require('../Big-O-algorithms/algorithms.solutions.js');
+var reductions = require('../reductions/solution.js');
+var graph = require('./graph.build.js');
+
 
 eventListener.on('stringSearch', function (){
   console.log('string Searching!')
   let inputs = [];
-  for (var i = 1; i < 1000; i++){
+  for (var i = 1; i < 50; i++){
     let needle = String.fromCharCode(Math.random() * 94 + 32);
-    inputs.push([new Array(i).fill('').map((el, i) => {
+    inputs.push([new Array(i).fill('').map((el, j) => {
       let staged = String.fromCharCode(Math.random() * 94 + 32);
-      if (staged === needle && i < inputs.length / 2){
+      if (staged === needle && j < (inputs.length + inputs.length / 2 )/ 2){
         while (staged === needle){
           staged = String.fromCharCode(Math.random() * 94 + 32);
         }
@@ -8003,14 +8021,45 @@ eventListener.on('stringSearch', function (){
     }).join(''), needle ])
   }
   console.log(inputs)
-  buildGraphForAlgorithm(algorithms.stringSearch, inputs)
+  graph.buildGraphForAlgorithm(algorithms.stringSearch, inputs, 'red')
 })
 
-// eventListener.on('sortedArrSearch', function (){
-//   buildGraphForAlgorithm(algorithms.sortedArrSearch, inputs)
-// })
+eventListener.on('sortedArrSearch', function (){
+  let inputs = [];
+  for (var i = 1; i < 50; i++) {
+    let array = graph.generateIncreasingNumbers(i)
+    inputs.push([array, array[Math.floor(array.length / 2)] + 1])
+  }
+  console.log(inputs)
+  graph.buildGraphForAlgorithm(algorithms.sortedArrSearch, inputs, 'blue')
+})
 
+eventListener.on('pairSumNaive', function (){
+  let inputs = [];
+  for (var i = 1; i < 50; i++) {
+    let array = graph.generateRandomNumbers(i);
+    let num = 0;
+    inputs.push([array, num])
+  }
+  console.log(inputs)
+  graph.buildGraphForAlgorithm(algorithms.pairSumNaive, inputs, 'purple')
+})
+
+eventListener.on('coinChangeProblem', function (){
+  let inputs = [[[1, 2], 4],
+[[5, 2, 3], 10],
+[[5, 7], 11],
+[[1, 5, 10, 25], 61],
+[[8, 12, 13, 94, 27], 572]];
+  // for (var i = 1; i < 5; i++) {
+  //   let array = graph.generateRandomNumbers(i);
+  //   let num = Math.floor(Math.random() * Math.max.apply(null, array) * 5);
+  //   inputs.push([array, num])
+  // }
+  console.log(inputs)
+  graph.buildGraphForAlgorithm(reductions.countChangeCombinations.bind(reductions), inputs, 'green')
+})
 
 console.log('hello world')
 
-},{"../Big-O-algorithms/algorithms.solutions.js":1,"../reductions/solution.js":4,"d3":3}]},{},[5]);
+},{"../Big-O-algorithms/algorithms.solutions.js":1,"../reductions/solution.js":4,"./graph.build.js":5}]},{},[6]);

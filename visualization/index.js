@@ -1,61 +1,16 @@
 var algorithms = require('../Big-O-algorithms/algorithms.solutions.js');
-var NPCMethods = require('../reductions/solution.js');
-var d3 = require('d3');
+var reductions = require('../reductions/solution.js');
+var graph = require('./graph.build.js');
 
-function buildGraphForAlgorithm(algorithm, inputs){
-  let d3Data = inputs.map(ip => {
-    let date = new Date();
-    let solution = algorithm.apply(null, ip);
-    let date2 = new Date();
-    let length = ip[0].length;
-    let height = date2 - date < 2 ? solution[1] : date2 - date
-    return [length, height];
-  })
-  console.log(d3Data, 'd3 data-----------')
-  var margin = {top: 20, right: 20, bottom: 30, left: 50}
-  let canvas = d3.select('svg')
-    .attr({ 'width': 1080, 'height': 800 });
-
-    let yscale = d3.scale.linear()
-      .domain([0, d3.max(d3Data.map(o => o[1]))])
-      .range([720,0]);
-
-    let xscale = d3.scale.linear()
-      .domain([0, d3Data.length])
-      .range([0, 1080]);
-
-    var line = d3.svg.line()
-      .x(function(d) { return xscale(d3Data.map(e => e[0]).indexOf(d[0])); })
-      .y(function(d) { return yscale(d[1]); })
-
-    var emptyLine = d3.svg.line()
-      .x(function(d) { return xscale(d3Data.map(e => e[0]).indexOf(d[0])); })
-      .y(800)
-
-    canvas.selectAll("dot")
-    .data(d3Data).enter()
-    .append("circle")
-    .attr("r", 1)
-    .attr("fill", "red")
-    .attr("cx", function(d) {
-      /*Callback Function*/
-      return xscale(d[0])
-    })
-    .attr("cy", function(d) {
-      /*Callback Function*/
-      return yscale(d[1])
-    })
-
-}
 
 eventListener.on('stringSearch', function (){
   console.log('string Searching!')
   let inputs = [];
-  for (var i = 1; i < 1000; i++){
+  for (var i = 1; i < 50; i++){
     let needle = String.fromCharCode(Math.random() * 94 + 32);
-    inputs.push([new Array(i).fill('').map((el, i) => {
+    inputs.push([new Array(i).fill('').map((el, j) => {
       let staged = String.fromCharCode(Math.random() * 94 + 32);
-      if (staged === needle && i < inputs.length / 2){
+      if (staged === needle && j < (inputs.length + inputs.length / 2 )/ 2){
         while (staged === needle){
           staged = String.fromCharCode(Math.random() * 94 + 32);
         }
@@ -64,12 +19,43 @@ eventListener.on('stringSearch', function (){
     }).join(''), needle ])
   }
   console.log(inputs)
-  buildGraphForAlgorithm(algorithms.stringSearch, inputs)
+  graph.buildGraphForAlgorithm(algorithms.stringSearch, inputs, 'red')
 })
 
-// eventListener.on('sortedArrSearch', function (){
-//   buildGraphForAlgorithm(algorithms.sortedArrSearch, inputs)
-// })
+eventListener.on('sortedArrSearch', function (){
+  let inputs = [];
+  for (var i = 1; i < 50; i++) {
+    let array = graph.generateIncreasingNumbers(i)
+    inputs.push([array, array[Math.floor(array.length / 2)] + 1])
+  }
+  console.log(inputs)
+  graph.buildGraphForAlgorithm(algorithms.sortedArrSearch, inputs, 'blue')
+})
 
+eventListener.on('pairSumNaive', function (){
+  let inputs = [];
+  for (var i = 1; i < 50; i++) {
+    let array = graph.generateRandomNumbers(i);
+    let num = 0;
+    inputs.push([array, num])
+  }
+  console.log(inputs)
+  graph.buildGraphForAlgorithm(algorithms.pairSumNaive, inputs, 'purple')
+})
+
+eventListener.on('coinChangeProblem', function (){
+  let inputs = [[[1, 2], 4],
+[[5, 2, 3], 10],
+[[5, 7], 11],
+[[1, 5, 10, 25], 61],
+[[8, 12, 13, 94, 27], 572]];
+  // for (var i = 1; i < 5; i++) {
+  //   let array = graph.generateRandomNumbers(i);
+  //   let num = Math.floor(Math.random() * Math.max.apply(null, array) * 5);
+  //   inputs.push([array, num])
+  // }
+  console.log(inputs)
+  graph.buildGraphForAlgorithm(reductions.countChangeCombinations.bind(reductions), inputs, 'green')
+})
 
 console.log('hello world')
