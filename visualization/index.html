@@ -14,6 +14,7 @@
       <button class="algo" id="sortedArrSearch">Sorted Arr Search</button>
       <button class="algo" id="pairSumNaive">Pair Sum Unsorted</button>
       <button class="algo" id="coinChangeProblem">Coin Change Problem</button>
+      <button class="algo" id="stairStep">Stair Step Problem</button>
     </div>
     <script src="./eventListener.js"></script>
     <script type="text/javascript">
@@ -33,6 +34,10 @@
       document.getElementById('coinChangeProblem').addEventListener('click', function (){
         console.log('clicked');
         eventListener.emit('coinChangeProblem')
+      })
+      document.getElementById('stairStep').addEventListener('click', function (){
+        console.log('clicked');
+        eventListener.emit('stairStep')
       })
     </script>
     <script src="./bundle.js" charset="utf-8" defer></script>

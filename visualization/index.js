@@ -35,7 +35,7 @@ eventListener.on('sortedArrSearch', function (){
 eventListener.on('pairSumNaive', function (){
   let inputs = [];
   for (var i = 1; i < 50; i++) {
-    let array = graph.generateRandomNumbers(i);
+    let array = graph.generateIncreasingNumbers(i);
     let num = 0;
     inputs.push([array, num])
   }
@@ -56,6 +56,11 @@ eventListener.on('coinChangeProblem', function (){
   // }
   console.log(inputs)
   graph.buildGraphForAlgorithm(reductions.countChangeCombinations.bind(reductions), inputs, 'green')
+})
+
+eventListener.on('stairStep', function (){
+  let inputs = new Array(20).fill(0).map((el, id) => id);
+  graph.buildGraphForAlgorithm(algorithms.stairStep, inputs, 'green')
 })
 
 console.log('hello world')

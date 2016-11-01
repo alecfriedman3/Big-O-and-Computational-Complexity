@@ -2,6 +2,7 @@ var d3 = require('d3');
 
 function buildGraphForAlgorithm(algorithm, inputs, color){
   let d3Data = inputs.map(ip => {
+    if (!Array.isArray(ip)) ip = [ip];
     let date = new Date();
     let solution = algorithm.apply(null, ip);
     let date2 = new Date();
@@ -16,6 +17,9 @@ function buildGraphForAlgorithm(algorithm, inputs, color){
     console.log(canvas, 'here lies canvas--------------')
     let yscale = d3.scale.linear()
       .domain([0, 250])
+      //         d3.max(d3Data, function (d) {
+      //   return d[1]
+      // })])
       .range([400,0]);
 
     let xscale = d3.scale.linear()
