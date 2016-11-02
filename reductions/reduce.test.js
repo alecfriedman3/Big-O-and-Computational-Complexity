@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
 
-const methods = require('./reduce');
+const methods = require('./reductions');
 
 xdescribe('Reductions:', () => {
   let knapsackSpy, coinSpy, partitionSpy;
