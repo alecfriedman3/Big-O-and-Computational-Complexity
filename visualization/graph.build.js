@@ -2,19 +2,23 @@ var d3 = require('d3');
 
 function buildGraphForAlgorithm(algorithm, inputs, color){
   let d3Data = inputs.map(ip => {
-    if (!Array.isArray(ip)) ip = [ip];
+    let length;
+    if (!Array.isArray(ip)){
+      length = ip;
+      ip = [ip];
+    }
     let date = new Date();
     let solution = algorithm.apply(null, ip);
     let date2 = new Date();
-    let length = ip[0].length;
+    length = length || ip[0].length;
     let height = date2 - date < 2 ? solution[1] : date2 - date
     return [length, height];
   })
-  console.log(d3Data, 'd3 data-----------')
+  // console.log(d3Data, 'd3 data-----------')
   var margin = {top: 20, right: 20, bottom: 30, left: 50}
   let canvas = d3.select('svg')
     .attr({ 'width': 800, 'height': 400 });
-    console.log(canvas, 'here lies canvas--------------')
+    // console.log(canvas, 'here lies canvas--------------')
     let yscale = d3.scale.linear()
       .domain([0, 250])
       //         d3.max(d3Data, function (d) {

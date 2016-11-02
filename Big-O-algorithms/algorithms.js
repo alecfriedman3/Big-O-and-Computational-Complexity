@@ -11,10 +11,6 @@ const sortedArrSearch = (arr, val) => {
   let counter = 0;
 }
 
-const binaryTreeSearch = () => {
-  // recursively search a binary tree
-}
-
 // given an array and a target value, do two elements in the array sum to the value?
 const pairSumNaive = (arr, sumVal) => {
   // Write a solution that solves in O(n^2)

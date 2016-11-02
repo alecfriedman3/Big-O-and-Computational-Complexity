@@ -2,18 +2,9 @@ const chai = require('chai');
 const expect = chai.expect;
 const sinon = require('sinon');
 
-const methods = require('./solution');
-// const {
-//   countChangeCombinations,
-//   combinatorialPartitonsReduceToCoins,
-//   knapsackProblem,
-//   subsetSumReduceToKnapsack,
-//   partitionProblemReducedToKnapsack,
-//   partitionProblem,
-//   knapsackReduceToPartiton
-// } = methods
+const methods = require('./reduce');
 
-describe('Reductions:', () => {
+xdescribe('Reductions:', () => {
   let knapsackSpy, coinSpy, partitionSpy;
 
   describe('The Counting Change combinations problem', () =>{
@@ -27,7 +18,7 @@ describe('Reductions:', () => {
     })
 
     // CAUTION THIS WILL TAKE A LONG TIME TO RUN IF YOU DO NOT USE MEMOIZATION
-    it ('only try this if you think your algorithm is efficient!', function() {
+    xit ('only try this if you think your algorithm is efficient!', function() {
       this.timeout(5000)
       expect(methods.countChangeCombinations([2, 7, 4, 8, 16], 363)).to.be.equal(118519)
     })
