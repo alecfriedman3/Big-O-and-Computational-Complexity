@@ -1,4 +1,4 @@
-var algorithms = require('../Big-O-algorithms/algorithms.solutions.js');
+var algorithms = require('../Big-O-algorithms/algorithms.js');
 var reductions = require('../reductions/reductions.js');
 var graph = require('./graph.build.js');
 
